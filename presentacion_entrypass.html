@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EntryPass — Presentación TFG</title>
+<link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #000000;
+  --card: rgba(255,255,255,0.035);
+  --card-hover: rgba(255,255,255,0.06);
+  --card-border: rgba(255,255,255,0.07);
+  --cyan: #26b1c4;
+  --cyan-bright: #3dd4e8;
+  --cyan-glow: rgba(38,177,196,0.3);
+  --cyan-dim: rgba(38,177,196,0.08);
+  --text: #ffffff;
+  --text-dim: #b0b0c0;
+  --text-muted: #6b6b7b;
+  --success: #2dd4bf;
+  --danger: #f87171;
+  --warning: #fbbf24;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  width:100%; height:100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+body::before {
+  content:'';
+  position:fixed; top:-25%; left:-15%;
+  width:60vw; height:60vw;
+  background: radial-gradient(circle, rgba(38,177,196,0.07) 0%, transparent 55%);
+  pointer-events:none; z-index:0;
+}
+body::after {
+  content:'';
+  position:fixed; bottom:-25%; right:-15%;
+  width:55vw; height:55vw;
+  background: radial-gradient(circle, rgba(38,177,196,0.04) 0%, transparent 55%);
+  pointer-events:none; z-index:0;
+}
+
+#slides {
+  position:relative;
+  width:100%; height:100%;
+  z-index:1;
+}
+
+.slide {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding: 3rem 4rem;
+  opacity:0;
+  pointer-events:none;
+  transform: translateX(50px) scale(0.97);
+  transition: all 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slide.active {
+  opacity:1;
+  pointer-events:all;
+  transform: translateX(0) scale(1);
+}
+
+.slide.prev {
+  transform: translateX(-50px) scale(0.97);
+  opacity:0;
+}
+
+.slide-content {
+  max-width: 1150px;
+  width:100%;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  background: linear-gradient(135deg, #fff 20%, var(--cyan-bright) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.8rem;
+  color: var(--text);
+  position: relative;
+  display: inline-block;
+}
+
+h2::after {
+  content:'';
+  position:absolute;
+  bottom:-10px; left:0;
+  width:50px; height:3px;
+  background: linear-gradient(90deg, var(--cyan), transparent);
+  border-radius: 2px;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--cyan);
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.01em;
+}
+
+p, li {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+strong { color: var(--text); font-weight: 600; }
+
+.badge {
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  padding: 0.4rem 1.1rem;
+  background: var(--cyan-dim);
+  border: 1px solid var(--cyan-glow);
+  border-radius: 100px;
+  color: var(--cyan);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+.badge::before {
+  content:'';
+  width:6px; height:6px;
+  border-radius:50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.5rem 1.8rem;
+  transition: all 0.3s ease;
+}
+
+.glass:hover {
+  background: var(--card-hover);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+
+/* ===== TECH CARDS WITH DEVICON ===== */
+.tech-card {
+  background: linear-gradient(160deg, rgba(38,177,196,0.05) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.6rem 1.3rem;
+  text-align: center;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
+  opacity:0;
+  transition: opacity 0.3s;
+}
+
+.tech-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--cyan-glow);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(38,177,196,0.06);
+}
+
+.tech-card:hover::before { opacity:1; }
+
+.tech-card .tech-icon {
+  font-size: 3.2rem;
+  margin-bottom: 0.8rem;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(38,177,196,0.15));
+  transition: all 0.3s;
+}
+
+.tech-card:hover .tech-icon {
+  filter: drop-shadow(0 4px 20px rgba(38,177,196,0.3));
+  transform: scale(1.08);
+}
+
+.tech-card h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.tech-card p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Stack category headers */
+.stack-category {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.stack-category .cat-icon {
+  font-size: 1.4rem;
+}
+
+.stack-category h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Tables */
+table {
+  width:100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.92rem;
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+th {
+  background: linear-gradient(180deg, rgba(38,177,196,0.1) 0%, rgba(38,177,196,0.04) 100%);
+  color: var(--cyan);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--cyan-glow);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+td {
+  padding: 0.8rem 1.1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--text-dim);
+  transition: background 0.2s;
+}
+
+tr:hover td { background: rgba(255,255,255,0.02); }
+tr:last-child td { border-bottom: none; }
+
+.check { color: var(--success); font-weight: 700; }
+.cross { color: var(--danger); font-weight: 700; }
+.highlight { color: var(--cyan); font-weight: 600; }
+.neutral { color: var(--warning); font-weight: 600; }
+
+/* Flow diagram */
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.flow-num {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--cyan-dim);
+  border: 2px solid var(--cyan);
+  color: var(--cyan);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  box-shadow: 0 0 20px rgba(38,177,196,0.15);
+}
+
+.flow-text {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 0.85rem 1.2rem;
+  transition: all 0.3s;
+}
+
+.flow-text:hover {
+  border-color: var(--cyan-glow);
+  background: var(--card-hover);
+}
+
+.flow-text strong { color: var(--text); font-size: 0.98rem; }
+.flow-text p { font-size: 0.88rem; margin: 0; margin-top: 0.15rem; color: var(--text-muted); }
+
+.flow-arrow {
+  width: 2px;
+  height: 18px;
+  background: linear-gradient(to bottom, var(--cyan), transparent);
+  margin-left: 20px;
+  margin-top: -0.3rem;
+  margin-bottom: 0.2rem;
+  opacity: 0.6;
+}
+
+/* List styling */
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-list li {
+  position: relative;
+  padding-left: 1.6rem;
+  margin-bottom: 0.85rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.feature-list li::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+  font-size: 1.3rem;
+  line-height: 0.9;
+  font-weight: 700;
+}
+
+/* Navigation */
+.nav-controls {
+  position: fixed;
+  bottom: 1.8rem;
+  right: 1.8rem;
+  display: flex;
+  gap: 0.6rem;
+  z-index: 100;
+}
+
+.nav-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+
+.nav-btn:hover {
+  background: var(--cyan-dim);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  transform: scale(1.1);
+}
+
+.slide-counter {
+  position: fixed;
+  bottom: 1.8rem;
+  left: 1.8rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  z-index: 100;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--cyan-bright));
+  box-shadow: 0 0 10px var(--cyan-glow);
+  transition: width 0.4s ease;
+  z-index: 100;
+}
+
+/* Hero */
+.hero-subtitle {
+  font-size: 1.35rem;
+  color: var(--text-dim);
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.hero-meta span { display: flex; align-items: center; gap: 0.5rem; }
+
+/* Quote */
+.big-quote {
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-dim);
+  border-left: 3px solid var(--cyan);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+/* Demo list */
+.demo-list { display: flex; flex-direction: column; gap: 0.85rem; }
+
+.demo-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.1rem 1.4rem;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: default;
+}
+
+.demo-item:hover {
+  border-color: var(--cyan-glow);
+  transform: translateX(10px);
+  background: var(--card-hover);
+}
+
+.demo-item .num {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  border: 1px solid var(--cyan-glow);
+}
+
+.demo-item .text { font-size: 1rem; color: var(--text-dim); }
+.demo-item .text strong { color: var(--text); }
+
+/* Metric cards */
+.metric-card {
+  text-align: center;
+  padding: 1.8rem 1.2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::after {
+  content:'';
+  position:absolute;
+  bottom:0; left:20%; right:20%;
+  height:1px;
+  background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
+}
+
+.metric-value {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-shadow: 0 0 30px var(--cyan-glow);
+}
+
+.metric-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+}
+
+/* Competitor tags */
+.competitor-tag {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+
+.tag-entrypass { background: rgba(38,177,196,0.15); color: var(--cyan); }
+.tag-eventbrite { background: rgba(251,191,36,0.1); color: var(--warning); }
+.tag-ticketmaster { background: rgba(248,113,113,0.1); color: var(--danger); }
+.tag-entradium { background: rgba(160,160,192,0.1); color: var(--text-dim); }
+
+/* Print */
+@media print {
+  .nav-controls, .slide-counter, .progress-bar { display: none !important; }
+  .slide {
+    position: relative;
+    opacity: 1 !important;
+    transform: none !important;
+    page-break-after: always;
+    height: 100vh;
+  }
+  body { overflow: visible; }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.7rem; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .slide { padding: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<div id="slides">
+
+<!-- SLIDE 1: PORTADA -->
+<div class="slide active">
+  <div class="slide-content" style="text-align:center;">
+    <div class="badge" style="margin-bottom:1.5rem;">Trabajo de Fin de Grado — 2º DAW</div>
+    <h1 style="font-size:4.5rem; margin-bottom:0.8rem;">EntryPass</h1>
+    <p class="hero-subtitle" style="font-size:1.5rem;">Gestión y Compra de Entradas para Eventos</p>
+    <div style="width:80px; height:2px; background:linear-gradient(90deg, var(--cyan), transparent); margin:1.5rem auto; border-radius:2px;"></div>
+    <p style="font-size:1.1rem; color:var(--text-dim); margin-bottom:0.4rem;">José Manuel Román Navarro</p>
+    <div class="hero-meta" style="justify-content:center;">
+      <span>📅 Curso 2025-2026</span>
+      <span>🏫 IES Portada Alta</span>
+      <span>⏱️ 250 horas</span>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: ÍNDICE -->
+<div class="slide">
+  <div class="slide-content">
+    <h2>Índice</h2>
+    <div class="grid-2" style="margin-top:1.5rem;">
+      <div class="glass">
+        <ol style="list-style:none; counter-reset:item; padding:0;">
+          <li style="counter-increment:item; margin-bottom:1rem; font-size:1.05rem; color:var(--text-dim);"><span style="color:var(--cyan); font-weight:700; margin-right:0.7rem; font-variant-numeric:tabular-nums;">01</span> Introducción y Objetivos</li>
+          <li style="counter-increment:item; margin-bottom:1rem; font-size:1.05rem; color:var(--text-dim);"><span style="color:var(--cyan); font-weight:700; margin-right:0.7rem; font-variant-numeric:tabular-nums;">02</span> Comparativa de Soluciones</li>
+          <li style="counter-increment:item; margin-bottom:1rem; font-size:1.05rem; color:var(--text-dim);"><span style="color:var(--cyan); font-weight:700; margin-right:0.7rem; font-variant-numeric:tabular-nums;">03</span> Stack Tecnológico</li>
+          <li style="counter-increment:item; margin-bottom:1rem; font-size:1.05rem; color:var(--text-dim);"><span style="color:var(--cyan); font-weight:700; margin-right:0.7rem; font-variant-numeric:tabular-nums;">04</span> Arquitectura Hexagonal y Asincronía</li>
+        </ol>
+      </div>
+      <div class="glass">
+        <ol style="list-style:none; counter-reset:item 4; padding:0;">
+          <li style="counter-increment:item; margin-bottom:1rem; font-size:1.05rem; color:var(--text-dim);"><span style="color:var(--cyan); font-weight:700; margin-right:0.7rem; font-variant-numeric:tabular-nums;">05</span> Casos de Uso Principales</li>
+          <li style="counter-increment:item; margin-bottom:1rem; font-size:1.05rem; color:var(--text-dim);"><span style="color:var(--cyan); font-weight:700; margin-right:0.7rem; font-variant-numeric:tabular-nums;">06</span> Líneas Futuras</li>
+          <li style="counter-increment:item; margin-bottom:1rem; font-size:1.05rem; color:var(--text-dim);"><span style="color:var(--cyan); font-weight:700; margin-right:0.7rem; font-variant-numeric:tabular-nums;">07</span> Conclusiones</li>
+          <li style="counter-increment:item; margin-bottom:1rem; font-size:1.05rem; color:var(--text-dim);"><span style="color:var(--cyan); font-weight:700; margin-right:0.7rem; font-variant-numeric:tabular-nums;">08</span> Demostración en Vivo</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: INTRODUCCIÓN -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">01 — Introducción</div>
+    <h2 style="margin-bottom:1.2rem;">¿Qué problema resolvemos?</h2>
+    <div class="grid-2" style="gap:1.5rem; align-items:stretch;">
+      <div class="glass" style="border-left:3px solid var(--danger); border-radius:0 16px 16px 0;">
+        <h3 style="color:var(--danger); margin-top:0;">❌ El Problema</h3>
+        <ul class="feature-list">
+          <li>Pequeños organizadores sin herramientas tecnológicas adecuadas</li>
+          <li>Plataformas existentes cobran comisiones abusivas (3,5%–25%)</li>
+          <li>Control de acceso manual con listas de papel = fraude y colas</li>
+          <li>Dependencia total de terceros: sin autonomía de datos</li>
+        </ul>
+      </div>
+      <div class="glass" style="border-left:3px solid var(--success); border-radius:0 16px 16px 0;">
+        <h3 style="color:var(--success); margin-top:0;">✅ La Solución: EntryPass</h3>
+        <ul class="feature-list">
+          <li>Plataforma integral, escalable y <strong>sin comisiones</strong></li>
+          <li>Experiencia de usuario fluida y profesional</li>
+          <li>Validación QR infalible en tiempo real</li>
+          <li>Arquitectura moderna preparada para el cambio</li>
+        </ul>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:1.5rem; font-size:0.95rem; color:var(--text-muted);">
+      <strong style="color:var(--cyan);">Enfoque triple:</strong> UX fluida + robustez técnica + autonomía del organizador
+    </p>
+  </div>
+</div>
+
+<!-- SLIDE 4: OBJETIVOS -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">02 — Objetivos</div>
+    <h2>Objetivos del Proyecto</h2>
+    <div class="grid-2" style="gap:1rem;">
+      <div class="glass" style="display:flex; gap:1rem; align-items:flex-start;">
+        <div class="flow-num" style="width:40px;height:40px;font-size:1rem;">1</div>
+        <div>
+          <strong style="color:var(--text); font-size:1rem;">Plataforma Unificada</strong>
+          <p style="font-size:0.9rem; margin:0.2rem 0 0; color:var(--text-muted);">Cliente y Organizador coexisten en un solo ecosistema sin fricción.</p>
+        </div>
+      </div>
+      <div class="glass" style="display:flex; gap:1rem; align-items:flex-start;">
+        <div class="flow-num" style="width:40px;height:40px;font-size:1rem;">2</div>
+        <div>
+          <strong style="color:var(--text); font-size:1rem;">Frontend SPA Moderno</strong>
+          <p style="font-size:0.9rem; margin:0.2rem 0 0; color:var(--text-muted);">Angular 21 Zoneless + Signals. Navegación instantánea sin recargas.</p>
+        </div>
+      </div>
+      <div class="glass" style="display:flex; gap:1rem; align-items:flex-start;">
+        <div class="flow-num" style="width:40px;height:40px;font-size:1rem;">3</div>
+        <div>
+          <strong style="color:var(--text); font-size:1rem;">API REST Robusta</strong>
+          <p style="font-size:0.9rem; margin:0.2rem 0 0; color:var(--text-muted);">Symfony 7 + PHP 8.4. Respuestas &lt; 500ms y control de concurrencia.</p>
+        </div>
+      </div>
+      <div class="glass" style="display:flex; gap:1rem; align-items:flex-start;">
+        <div class="flow-num" style="width:40px;height:40px;font-size:1rem;">4</div>
+        <div>
+          <strong style="color:var(--text); font-size:1rem;">Procesamiento Asíncrono</strong>
+          <p style="font-size:0.9rem; margin:0.2rem 0 0; color:var(--text-muted);">RabbitMQ desacopla tareas pesadas: QR, PDF y email en segundo plano.</p>
+        </div>
+      </div>
+      <div class="glass" style="display:flex; gap:1rem; align-items:flex-start; grid-column: 1 / -1;">
+        <div class="flow-num" style="width:40px;height:40px;font-size:1rem;">5</div>
+        <div>
+          <strong style="color:var(--text); font-size:1rem;">Seguridad Infalible</strong>
+          <p style="font-size:0.9rem; margin:0.2rem 0 0; color:var(--text-muted);">Validación de tickets mediante hashes UUID. Cambio de estado <code>valid</code> → <code>used</code> atómico e irreversible.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: COMPARATIVA CON TICKETMASTER -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">03 — Estado del Arte</div>
+    <h2>Comparativa de Soluciones</h2>
+    <table style="margin-top:0.8rem; font-size:0.88rem;">
+      <thead>
+        <tr>
+          <th style="width:28%">Característica</th>
+          <th style="text-align:center; width:18%;"><span class="competitor-tag tag-entrypass">EntryPass</span></th>
+          <th style="text-align:center; width:18%;"><span class="competitor-tag tag-eventbrite">Eventbrite</span></th>
+          <th style="text-align:center; width:18%;"><span class="competitor-tag tag-ticketmaster">Ticketmaster</span></th>
+          <th style="text-align:center; width:18%;"><span class="competitor-tag tag-entradium">Entradium</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Comisiones por ticket</strong></td>
+          <td style="text-align:center;"><span class="highlight">0% (Self-Hosted)</span></td>
+          <td style="text-align:center;"><span class="cross">3.5% – 6.5%</span></td>
+          <td style="text-align:center;"><span class="cross">10% – 25%</span></td>
+          <td style="text-align:center;"><span class="neutral">Media (~2%)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Control de datos</strong></td>
+          <td style="text-align:center;"><span class="check">Total (Self-Hosted)</span></td>
+          <td style="text-align:center;"><span class="cross">Nulo</span></td>
+          <td style="text-align:center;"><span class="cross">Nulo</span></td>
+          <td style="text-align:center;"><span class="cross">Nulo</span></td>
+        </tr>
+        <tr>
+          <td><strong>Orientación</strong></td>
+          <td style="text-align:center;"><span class="highlight">Pequeño/mediano</span></td>
+          <td style="text-align:center;">Generalista</td>
+          <td style="text-align:center;"><span class="cross">Grandes recintos</span></td>
+          <td style="text-align:center;">Pequeño/mediano</td>
+        </tr>
+        <tr>
+          <td><strong>Asincronía (QR/Email)</strong></td>
+          <td style="text-align:center;"><span class="check">Sí (RabbitMQ)</span></td>
+          <td style="text-align:center;"><span class="check">Sí</span></td>
+          <td style="text-align:center;"><span class="check">Sí</span></td>
+          <td style="text-align:center;">Limitada</td>
+        </tr>
+        <tr>
+          <td><strong>Arquitectura</strong></td>
+          <td style="text-align:center;"><span class="highlight">Hexagonal</span></td>
+          <td style="text-align:center;">Monolítica propia</td>
+          <td style="text-align:center;">Monolítica propia</td>
+          <td style="text-align:center;">Monolítica</td>
+        </tr>
+        <tr>
+          <td><strong>Validación QR tiempo real</strong></td>
+          <td style="text-align:center;"><span class="check">Sí (endpoint dedicado)</span></td>
+          <td style="text-align:center;"><span class="check">Sí</span></td>
+          <td style="text-align:center;"><span class="check">Sí (app nativa)</span></td>
+          <td style="text-align:center;">Limitada</td>
+        </tr>
+        <tr>
+          <td><strong>Curva de aprendizaje</strong></td>
+          <td style="text-align:center;"><span class="highlight">Baja</span></td>
+          <td style="text-align:center;">Media</td>
+          <td style="text-align:center;"><span class="cross">Alta</span></td>
+          <td style="text-align:center;">Baja</td>
+        </tr>
+        <tr>
+          <td><strong>Personalización de flujos</strong></td>
+          <td style="text-align:center;"><span class="check">Total (código abierto)</span></td>
+          <td style="text-align:center;"><span class="cross">Limitada</span></td>
+          <td style="text-align:center;"><span class="cross">Mínima</span></td>
+          <td style="text-align:center;">Limitada</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="text-align:center; margin-top:1.2rem; font-size:0.9rem; color:var(--text-muted);">
+      EntryPass prioriza la <strong style="color:var(--cyan);">"no-fricción"</strong> para el pequeño promotor: <strong>0% comisiones</strong>, <strong>control total</strong> y <strong>arquitectura preparada para escalar</strong>.
+    </p>
+  </div>
+</div>
+
+<!-- SLIDE 6: STACK TECNOLÓGICO CON ICONOS DEVICON -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">04 — Stack Tecnológico</div>
+    <h2>Tecnologías Empleadas</h2>
+    <div class="grid-3" style="margin-top:1.2rem; align-items:start;">
+
+      <!-- FRONTEND -->
+      <div>
+        <div class="stack-category">
+          <span class="cat-icon">🎨</span>
+          <h3>Frontend</h3>
+        </div>
+        <div class="tech-card" style="margin-bottom:0.7rem;">
+          <i class="devicon-angularjs-plain tech-icon" style="color:#dd0031;"></i>
+          <h4>Angular 21</h4>
+          <p>Zoneless + Signals. Estado reactivo puro sin detección de cambios tradicional.</p>
+        </div>
+        <div class="tech-card" style="margin-bottom:0.7rem;">
+          <i class="devicon-typescript-plain tech-icon" style="color:#3178c6;"></i>
+          <h4>TypeScript</h4>
+          <p>Tipado estático que previene errores en tiempo de desarrollo.</p>
+        </div>
+        <div class="tech-card">
+          <i class="devicon-css3-plain tech-icon" style="color:#264de4;"></i>
+          <h4>CSS Nativo</h4>
+          <p>Estilos modulares con variables CSS para máximo rendimiento.</p>
+        </div>
+      </div>
+
+      <!-- BACKEND -->
+      <div>
+        <div class="stack-category">
+          <span class="cat-icon">⚙️</span>
+          <h3>Backend</h3>
+        </div>
+        <div class="tech-card" style="margin-bottom:0.7rem;">
+          <i class="devicon-symfony-original tech-icon" style="color:#000000;"></i>
+          <h4>Symfony 7</h4>
+          <p>PHP 8.4. Messenger, Mailer, Security JWT. Control empresarial.</p>
+        </div>
+        <div class="tech-card" style="margin-bottom:0.7rem;">
+          <i class="devicon-php-plain tech-icon" style="color:#777bb4;"></i>
+          <h4>PHP 8.4</h4>
+          <p>JIT compilation, fibers y tipado mejorado para alto rendimiento.</p>
+        </div>
+        <div class="tech-card">
+          <i class="devicon-postgresql-plain tech-icon" style="color:#336791;"></i>
+          <h4>PostgreSQL 16</h4>
+          <p>Integridad referencial, UUID nativo y transacciones ACID.</p>
+        </div>
+      </div>
+
+      <!-- INFRAESTRUCTURA -->
+      <div>
+        <div class="stack-category">
+          <span class="cat-icon">🚀</span>
+          <h3>Infraestructura</h3>
+        </div>
+        <div class="tech-card" style="margin-bottom:0.7rem;">
+          <i class="devicon-docker-plain tech-icon" style="color:#2496ed;"></i>
+          <h4>Docker & Compose</h4>
+          <p>6 servicios contenerizados. Portabilidad total del entorno.</p>
+        </div>
+        <div class="tech-card" style="margin-bottom:0.7rem;">
+          <i class="devicon-rabbitmq-original tech-icon" style="color:#ff6600;"></i>
+          <h4>RabbitMQ</h4>
+          <p>Broker de mensajes. Colas, reintentos y cero pérdidas.</p>
+        </div>
+        <div class="tech-card">
+          <i class="devicon-nginx-original tech-icon" style="color:#009639;"></i>
+          <h4>Nginx</h4>
+          <p>Reverse proxy y servidor de producción optimizado.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: ARQUITECTURA HEXAGONAL -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">05 — Arquitectura</div>
+    <h2>Arquitectura Hexagonal</h2>
+    <p style="margin-bottom:1.2rem; font-size:1rem;">Separación de responsabilidades mediante <strong style="color:var(--cyan);">Ports & Adapters</strong></p>
+    <div class="grid-3" style="gap:1rem;">
+      <div class="glass" style="text-align:center; border-top:2px solid var(--cyan); position:relative;">
+        <div style="position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--bg); padding:0 0.8rem; color:var(--cyan); font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">Capa Interna</div>
+        <div style="font-size:2.2rem; margin:0.8rem 0 0.4rem;">🧠</div>
+        <h3 style="font-size:1.1rem;">Dominio</h3>
+        <p style="font-size:0.88rem;">Reglas de negocio puras</p>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.4rem;">User, Event, Purchase, Ticket</p>
+      </div>
+      <div class="glass" style="text-align:center; border-top:2px solid var(--success); position:relative;">
+        <div style="position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--bg); padding:0 0.8rem; color:var(--success); font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">Capa Media</div>
+        <div style="font-size:2.2rem; margin:0.8rem 0 0.4rem;">📋</div>
+        <h3 style="font-size:1.1rem; color:var(--success);">Aplicación</h3>
+        <p style="font-size:0.88rem;">Casos de uso y Puertos</p>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.4rem;">Checkout, Registro, Validación</p>
+      </div>
+      <div class="glass" style="text-align:center; border-top:2px solid var(--danger); position:relative;">
+        <div style="position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--bg); padding:0 0.8rem; color:var(--danger); font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">Capa Externa</div>
+        <div style="font-size:2.2rem; margin:0.8rem 0 0.4rem;">🔌</div>
+        <h3 style="font-size:1.1rem; color:var(--danger);">Infraestructura</h3>
+        <p style="font-size:0.88rem;">Adaptadores concretos</p>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.4rem;">Doctrine, StripeMock, Dompdf</p>
+      </div>
+    </div>
+    <div class="glass" style="margin-top:1.2rem; text-align:center; border-left:3px solid var(--cyan);">
+      <p style="font-size:0.98rem; margin:0;">
+        <strong style="color:var(--cyan);">Ventaja clave:</strong> Si cambia la BD o una librería, solo se reemplaza el adaptador. El núcleo permanece intacto.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: PROCESAMIENTO ASÍNCRONO -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">05 — Asincronía</div>
+    <h2>Flujo Asíncrono: Compra de Entrada</h2>
+    <p style="margin-bottom:1.8rem; font-size:1rem;">El usuario recibe confirmación en <strong style="color:var(--cyan);">&lt; 1 segundo</strong>. El trabajo pesado ocurre en segundo plano.</p>
+    <div style="max-width:680px; margin:0 auto;">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-text">
+          <strong>Usuario confirma compra</strong>
+          <p>Checkout modal → API Symfony registra en BD atómicamente (&lt; 500ms)</p>
+        </div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-text">
+          <strong>Mensaje a RabbitMQ</strong>
+          <p>La API emite un evento de dominio a la cola de mensajes</p>
+        </div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-text">
+          <strong>Worker procesa en background</strong>
+          <p>Genera UUIDs → Dibuja QRs → Ensambla PDF → Envía email</p>
+        </div>
+      </div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step">
+        <div class="flow-num" style="background:var(--success); color:var(--bg); border-color:var(--success); box-shadow:0 0 20px rgba(45,212,191,0.3);">✓</div>
+        <div class="flow-text">
+          <strong>Entrega garantizada</strong>
+          <p>Reintentos automáticos si falla. Cero pérdidas de tickets.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: FLUJO DE COMPRA -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">06 — Casos de Uso</div>
+    <h2>Flujo de Compra</h2>
+    <div class="grid-2" style="gap:1.5rem; align-items:stretch;">
+      <div>
+        <div class="glass" style="margin-bottom:0.8rem;">
+          <h3 style="margin-top:0;">🛒 Checkout Premium</h3>
+          <ul class="feature-list">
+            <li>Modal overlay sin recargas de página</li>
+            <li>Stripe Mock UI con latencia simulada (1.5s)</li>
+            <li>Validación de tarjeta en tiempo real</li>
+            <li>Bloqueo automático si el aforo se agota</li>
+          </ul>
+        </div>
+        <div class="glass">
+          <h3 style="margin-top:0;">🎫 Perfil de Usuario</h3>
+          <ul class="feature-list">
+            <li>Tickets desplegables con estados traducidos</li>
+            <li>QR renderizado al vuelo desde hash único</li>
+            <li>Acceso directo sin depender del email</li>
+          </ul>
+        </div>
+      </div>
+      <div class="glass" style="text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:3.5rem; margin-bottom:1rem;">📱</div>
+        <h3 style="margin-top:0;">Validación en Puerta</h3>
+        <p style="margin-bottom:1.2rem; font-size:0.95rem;">Escáner QR móvil optimizado para uso nocturno</p>
+        <div style="display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap;">
+          <div style="background:rgba(45,212,191,0.12); border:1px solid var(--success); color:var(--success); padding:0.5rem 1rem; border-radius:8px; font-weight:600; font-size:0.9rem;">✓ Válido</div>
+          <div style="background:rgba(248,113,113,0.12); border:1px solid var(--danger); color:var(--danger); padding:0.5rem 1rem; border-radius:8px; font-weight:600; font-size:0.9rem;">✗ Usado</div>
+          <div style="background:rgba(251,191,36,0.12); border:1px solid var(--warning); color:var(--warning); padding:0.5rem 1rem; border-radius:8px; font-weight:600; font-size:0.9rem;">? No reconocido</div>
+        </div>
+        <p style="margin-top:1rem; font-size:0.85rem; color:var(--text-muted);">Prevención de double-spend en milisegundos</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: MODELO DE DATOS -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">06 — Datos</div>
+    <h2>Modelo de Datos</h2>
+    <p style="margin-bottom:1.2rem; font-size:1rem;">PostgreSQL con separación deliberada entre <strong style="color:var(--cyan);">Purchase</strong> (compra global) y <strong style="color:var(--cyan);">Ticket</strong> (entrada individual)</p>
+    <div class="grid-2" style="gap:1.2rem;">
+      <div class="glass">
+        <h3 style="margin-top:0;">Entidades Principales</h3>
+        <table style="font-size:0.84rem; margin-top:0.4rem;">
+          <thead><tr><th>Entidad</th><th>Rol</th></tr></thead>
+          <tbody>
+            <tr><td><strong>USERS</strong></td><td>Autenticación y roles (Admin/User)</td></tr>
+            <tr><td><strong>EVENTS</strong></td><td>Metadato, aforo y stock en tiempo real</td></tr>
+            <tr><td><strong>PURCHASES</strong></td><td>Apunte contable global de la compra</td></tr>
+            <tr><td><strong>TICKETS</strong></td><td>UUID único, estado valid/used/cancelled</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="glass">
+        <h3 style="margin-top:0;">Decisiones Clave</h3>
+        <ul class="feature-list">
+          <li>3 entradas = 1 Purchase + 3 Tickets independientes</li>
+          <li>Cada asistente escanea su QR sin depender del grupo</li>
+          <li>Transacciones ACID para control de race conditions</li>
+          <li>Rollback automático si el stock se agota durante la compra</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 11: LÍNEAS FUTURAS -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">07 — Futuro</div>
+    <h2>Líneas Futuras</h2>
+    <div class="grid-2" style="gap:1.2rem;">
+      <div class="glass">
+        <h3 style="margin-top:0;">💼 Funcionalidades de Negocio</h3>
+        <ul class="feature-list">
+          <li><strong>Pasarelas reales:</strong> Stripe/PayPal (solo un adaptador nuevo gracias a Hexagonal)</li>
+          <li><strong>WebSockets:</strong> Notificaciones de aforo en tiempo real</li>
+          <li><strong>Dashboard analítico:</strong> Gráficas de ventas e ingresos</li>
+          <li><strong>App móvil:</strong> PWA / Capacitor para instalación nativa</li>
+        </ul>
+      </div>
+      <div class="glass">
+        <h3 style="margin-top:0;">🔧 Mejoras Técnicas</h3>
+        <ul class="feature-list">
+          <li><strong>CI/CD:</strong> Pipeline GitHub Actions + despliegue cloud</li>
+          <li><strong>Testing E2E:</strong> Cypress/Playwright</li>
+          <li><strong>i18n:</strong> Soporte multiidioma con <code>@angular/localize</code></li>
+          <li><strong>Redis:</strong> Caché distribuida para consultas frecuentes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 12: CONCLUSIONES -->
+<div class="slide">
+  <div class="slide-content" style="text-align:center;">
+    <div class="badge">08 — Conclusiones</div>
+    <h2 style="display:inline-block;">Conclusiones</h2>
+    <div class="big-quote" style="text-align:left; max-width:780px; margin:1.5rem auto;">
+      "El proyecto demuestra que es posible crear una herramienta profesional y escalable con un presupuesto de infraestructura mínimo."
+    </div>
+    <div class="grid-3" style="margin-top:1.5rem; text-align:left;">
+      <div class="glass metric-card">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">Objetivos técnicos y funcionales cumplidos</div>
+      </div>
+      <div class="glass metric-card">
+        <div class="metric-value">8/8</div>
+        <div class="metric-label">Fases del roadmap completadas</div>
+      </div>
+      <div class="glass metric-card">
+        <div class="metric-value">&lt;1s</div>
+        <div class="metric-label">Tiempo de respuesta al comprar</div>
+      </div>
+    </div>
+    <p style="margin-top:1.5rem; color:var(--text-muted); font-size:0.95rem;">
+      La <strong style="color:var(--cyan);">Arquitectura Hexagonal</strong> ha permitido un desarrollo limpio y preparado para el cambio.
+    </p>
+  </div>
+</div>
+
+<!-- SLIDE 13: BIBLIOGRAFÍA -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">09 — Referencias</div>
+    <h2>Bibliografía</h2>
+    <div class="glass" style="margin-top:1.2rem;">
+      <ul class="feature-list">
+        <li><strong>Angular Documentation:</strong> Signals & Zoneless Architecture — <em style="color:var(--text-muted);">angular.dev</em></li>
+        <li><strong>Symfony Framework:</strong> Messenger and Hexagonal Patterns — <em style="color:var(--text-muted);">symfony.com</em></li>
+        <li><strong>RabbitMQ in Practice:</strong> Distributed Systems and Message Brokering</li>
+        <li><strong>Clean Architecture</strong> (Robert C. Martin): Principles of Dependency Inversion</li>
+        <li><strong>MDN Web Docs:</strong> CSS Grid, Flexbox and Accessibility</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 14: DEMO -->
+<div class="slide">
+  <div class="slide-content">
+    <div class="badge">10 — Demostración</div>
+    <h2>Demostración en Vivo</h2>
+    <div class="demo-list" style="margin-top:1.2rem;">
+      <div class="demo-item">
+        <div class="num">1</div>
+        <div class="text"><strong>Exploración:</strong> Home y carrusel dinámico de eventos</div>
+      </div>
+      <div class="demo-item">
+        <div class="num">2</div>
+        <div class="text"><strong>Auth:</strong> Flujo de registro y login con JWT + returnUrl</div>
+      </div>
+      <div class="demo-item">
+        <div class="num">3</div>
+        <div class="text"><strong>Proceso de Compra:</strong> Selección de entradas y Checkout simulado</div>
+      </div>
+      <div class="demo-item">
+        <div class="num">4</div>
+        <div class="text"><strong>Perfil:</strong> Visualización de tickets y QRs dinámicos</div>
+      </div>
+      <div class="demo-item">
+        <div class="num">5</div>
+        <div class="text"><strong>Panel Admin:</strong> Gestión de eventos y validación QR en puerta</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 15: CIERRE -->
+<div class="slide">
+  <div class="slide-content" style="text-align:center;">
+    <div style="font-size:5rem; margin-bottom:0.8rem; opacity:0.9;">🎫</div>
+    <h1 style="font-size:3.5rem; margin-bottom:0.6rem;">EntryPass</h1>
+    <p class="hero-subtitle" style="font-size:1.3rem; margin-bottom:2rem;">Gestión y Compra de Entradas para Eventos</p>
+    <div style="width:80px; height:2px; background:linear-gradient(90deg, var(--cyan), transparent); margin:0 auto 2rem; border-radius:2px;"></div>
+    <p style="font-size:1.2rem; color:var(--text-dim); margin-bottom:0.4rem;">¡Muchas gracias por su atención!</p>
+    <p style="font-size:0.95rem; color:var(--text-muted);">José Manuel Román Navarro · 2º DAW · IES Portada Alta</p>
+    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:1.5rem; font-style:italic;">Quedo a disposición del tribunal para las preguntas que consideren oportunas.</p>
+  </div>
+</div>
+
+</div>
+
+<!-- Controls -->
+<div class="nav-controls">
+  <button class="nav-btn" onclick="prevSlide()" title="Anterior">◀</button>
+  <button class="nav-btn" onclick="nextSlide()" title="Siguiente">▶</button>
+</div>
+<div class="slide-counter" id="counter">1 / 15</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const counter = document.getElementById('counter');
+const progress = document.getElementById('progress');
+
+function updateSlides() {
+  slides.forEach((slide, i) => {
+    slide.classList.remove('active', 'prev');
+    if (i === current) slide.classList.add('active');
+    else if (i < current) slide.classList.add('prev');
+  });
+  counter.textContent = (current + 1) + ' / ' + total;
+  progress.style.width = ((current + 1) / total * 100) + '%';
+}
+
+function nextSlide() {
+  if (current < total - 1) { current++; updateSlides(); }
+}
+function prevSlide() {
+  if (current > 0) { current--; updateSlides(); }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+});
+
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+});
+
+updateSlides();
+</script>
+
+</body>
+</html>
