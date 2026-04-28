@@ -66,7 +66,31 @@ tr:hover td{background:rgba(255,255,255,0.02)}tr:last-child td{border-bottom:non
 .id-card{margin-top:2rem;padding:1.2rem 2rem;background:var(--card);border:1px solid var(--card-border);border-radius:16px;display:inline-flex;flex-direction:column;gap:0.5rem;text-align:left;backdrop-filter:blur(20px)}
 .id-row{display:flex;align-items:center;gap:0.7rem;font-size:clamp(0.85rem,1.1vw,0.95rem);color:var(--text-dim)}
 .id-row strong{color:var(--text);min-width:110px;font-weight:600}
-.logo-hero{width:clamp(140px,18vw,220px);height:auto;margin-bottom:1.5rem;filter:drop-shadow(0 10px 30px rgba(38,177,196,0.15))}
+
+/* ── LOGO CORREGIDO ── */
+.logo-hero{
+  width:clamp(120px,14vw,180px);
+  height:auto;
+  margin-bottom:1.5rem;
+  border-radius:20px;
+  border:2px solid rgba(38,177,196,0.45);
+  box-shadow:
+    0 0 0 4px rgba(38,177,196,0.08),
+    0 0 30px rgba(38,177,196,0.2),
+    0 10px 40px rgba(0,0,0,0.5);
+  background:rgba(38,177,196,0.06);
+  padding:10px;
+  backdrop-filter:blur(10px);
+  transition:box-shadow 0.3s ease, transform 0.3s ease;
+}
+.logo-hero:hover{
+  box-shadow:
+    0 0 0 4px rgba(38,177,196,0.15),
+    0 0 45px rgba(38,177,196,0.35),
+    0 15px 50px rgba(0,0,0,0.5);
+  transform:translateY(-3px) scale(1.02);
+}
+
 .big-quote{font-size:clamp(1.1rem,2vw,1.5rem);font-weight:300;line-height:1.6;color:var(--text-dim);border-left:3px solid var(--cyan);padding-left:1.5rem;margin:1.5rem 0;font-style:italic}
 .demo-list{display:flex;flex-direction:column;gap:0.85rem}
 .demo-item{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:1.1rem 1.4rem;transition:all 0.35s cubic-bezier(0.22,1,0.36,1);cursor:default}
@@ -95,8 +119,6 @@ tr:hover td{background:rgba(255,255,255,0.02)}tr:last-child td{border-bottom:non
 @media(max-width:768px){.slide{padding:1.5rem 1.2rem;justify-content:flex-start;padding-top:2.5rem}.slide-content{max-width:100%;padding-bottom:5rem}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;gap:0.9rem}.nav-controls{bottom:1rem;right:1rem}.slide-counter{bottom:1rem;left:1rem}.nav-btn{width:40px;height:40px}.flow-step{gap:0.7rem}.flow-text{padding:0.7rem 0.9rem}.hero-meta{gap:1rem;flex-direction:column;align-items:center}.big-quote{padding-left:1rem;margin:1rem 0}.metric-card{padding:1.2rem 0.8rem}.glass{padding:1.2rem}.id-card{padding:1rem;width:100%;max-width:400px}.screenshot-grid{grid-template-columns:1fr}.usecase-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.slide{padding:1.2rem 1rem;padding-top:2rem}h2{margin-bottom:1.2rem}h2::after{width:35px;bottom:-8px}.badge{padding:0.3rem 0.8rem;margin-bottom:0.8rem}.tech-card{padding:1.2rem 0.8rem}.feature-list li{padding-left:1.3rem;margin-bottom:0.6rem}.demo-item{padding:0.9rem 1rem;gap:0.7rem}.demo-item:hover{transform:translateX(4px)}.flow-num{width:32px;height:32px;font-size:0.8rem}.flow-arrow{margin-left:15px;height:14px}table{font-size:0.75rem}th,td{padding:0.6rem 0.7rem}.competitor-tag{padding:0.1rem 0.3rem;font-size:0.6rem}.id-row{font-size:0.8rem}.id-row strong{min-width:90px}}
 </style>
-<base target="_blank">
-<base target="_blank">
 </head>
 <body>
 <div class="progress-bar" id="progress"></div>
@@ -135,7 +157,7 @@ tr:hover td{background:rgba(255,255,255,0.02)}tr:last-child td{border-bottom:non
         </ol>
       </div>
       <div class="glass">
-        <ol style="list-style:none;counter-reset:item 4;padding:0;">
+        <ol style="list-style:counter;counter-reset:item 4;padding:0;list-style:none;">
           <li style="counter-increment:item;margin-bottom:1rem;color:var(--text-dim);"><span style="color:var(--cyan);font-weight:700;margin-right:0.7rem;font-variant-numeric:tabular-nums;">05</span> Casos de Uso Principales</li>
           <li style="counter-increment:item;margin-bottom:1rem;color:var(--text-dim);"><span style="color:var(--cyan);font-weight:700;margin-right:0.7rem;font-variant-numeric:tabular-nums;">06</span> Líneas Futuras</li>
           <li style="counter-increment:item;margin-bottom:1rem;color:var(--text-dim);"><span style="color:var(--cyan);font-weight:700;margin-right:0.7rem;font-variant-numeric:tabular-nums;">07</span> Conclusiones</li>
@@ -251,7 +273,7 @@ tr:hover td{background:rgba(255,255,255,0.02)}tr:last-child td{border-bottom:non
       </div>
       <div>
         <div class="stack-category"><span class="cat-icon">⚙️</span><h3>Backend</h3></div>
-        <div class="tech-card" style="margin-bottom:0.7rem;"><i class="devicon-symfony-original tech-icon" style="color:#000;"></i><h4>Symfony 7</h4><p>PHP 8.4. Messenger, Mailer, Security JWT. Control empresarial.</p></div>
+        <div class="tech-card" style="margin-bottom:0.7rem;"><i class="devicon-symfony-original tech-icon" style="color:#fff;"></i><h4>Symfony 7</h4><p>PHP 8.4. Messenger, Mailer, Security JWT. Control empresarial.</p></div>
         <div class="tech-card" style="margin-bottom:0.7rem;"><i class="devicon-php-plain tech-icon" style="color:#777bb4;"></i><h4>PHP 8.4</h4><p>JIT compilation, fibers y tipado mejorado para alto rendimiento.</p></div>
         <div class="tech-card"><i class="devicon-postgresql-plain tech-icon" style="color:#336791;"></i><h4>PostgreSQL 16</h4><p>Integridad referencial, UUID nativo y transacciones ACID.</p></div>
       </div>
@@ -475,7 +497,7 @@ tr:hover td{background:rgba(255,255,255,0.02)}tr:last-child td{border-bottom:non
 <!-- SLIDE 15: CIERRE -->
 <div class="slide">
   <div class="slide-content" style="text-align:center;">
-    <img src="logo_entrypass.png" alt="EntryPass Logo" class="logo-hero" style="width:clamp(100px,14vw,160px);">
+    <img src="logo_entrypass.png" alt="EntryPass Logo" class="logo-hero" style="width:clamp(100px,12vw,150px);">
     <h1 style="margin-bottom:0.6rem;">EntryPass</h1>
     <p class="hero-subtitle" style="margin-bottom:2rem;">Gestión y Compra de Entradas para Eventos</p>
     <div style="width:80px;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);margin:0 auto 2rem;border-radius:2px;"></div>
